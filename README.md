@@ -11,7 +11,20 @@ See [eulerroom-live-web](https://github.com/EulerRoom/eulerroom-live-web) for th
 
 ## Usage
 
-This project uses Docker and Docker Compose to quick set things up.
+We use Git submodules for some of the modules, like the frontend and muxy, so
+make sure to clone this repository like this:
+
+```bash
+git clone --recurse-submodules
+```
+
+Whenever you need to pull for changes, also make sure to run:
+
+```bash
+git pull --recurse-submodules
+```
+
+There is a Docker Compose config file to quickly set things up.
 
 Run `docker compose up` to start all services.
 
