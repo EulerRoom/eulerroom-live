@@ -6,17 +6,45 @@ services:
     ports:
       - 8080:8080
       - 1936:1935
+    volumes:
+      - owncast-data:/app/data
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=muxy
+      - POSTGRES_PASSWORD=muxy
+      - POSTGRES_DB=muxy
+    ports:
+      - 5433:5432
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   muxy:
     build:
       context: ./muxy/
-    command: gunicorn muxy.wsgi:application --workers 3 --bind 0.0.0.0:8000
+    env_file:
+      - ./muxy/.env
+    environment:
+      - PGHOST=db
+      - PGDATABASE=muxy
+      - PGUSER=muxy
+      - PGPASSWORD=muxy
     volumes:
       - ./muxy/:/usr/src/app
     stdin_open: true
     tty: true
     ports:
       - 8000:8000
+    command: gunicorn muxy.wsgi:application --workers 3 --bind 0.0.0.0:8000
+    depends_on:
+      db:
+        condition: service_healthy
 
   nginx-rtmp:
     build:
@@ -36,3 +64,7 @@ services:
     depends_on:
       - muxy
       - owncast
+
+volumes:
+  pg-data:
+  owncast-data:
