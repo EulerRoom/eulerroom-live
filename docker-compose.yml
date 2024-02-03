@@ -12,9 +12,9 @@ services:
   db:
     image: postgres
     environment:
-      - POSTGRES_USER=muxy
-      - POSTGRES_PASSWORD=muxy
       - POSTGRES_DB=muxy
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     ports:
       - 5433:5432
     volumes:
@@ -28,13 +28,11 @@ services:
   muxy:
     build:
       context: ./muxy/
-    env_file:
-      - ./muxy/.env
     environment:
       - PGHOST=db
       - PGDATABASE=muxy
-      - PGUSER=muxy
-      - PGPASSWORD=muxy
+      - PGUSER=postgres
+      - PGPASSWORD=postgres
     volumes:
       - ./muxy/:/usr/src/app
     stdin_open: true
