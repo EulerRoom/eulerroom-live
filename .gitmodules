@@ -1,0 +1,3 @@
+[submodule "muxy"]
+	path = muxy
+	url = git@github.com:munshkr/muxy.git
