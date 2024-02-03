@@ -40,7 +40,8 @@ environment variables to configure Muxy:
 cp muxy/.env.sample muxy/.env
 ```
 
-Check [muxy/README.md](muxy/README.md) for more information.
+Check [Muxy](https://github.com/munshkr/muxy?tab=readme-ov-file#initial-configuration)
+for more information.
 
 Do the same for the Web service at `web/`, but this time, copy `.env` as
 `.env.local`:
@@ -49,7 +50,8 @@ Do the same for the Web service at `web/`, but this time, copy `.env` as
 cp web/.env web/.env.local
 ```
 
-Check [web/README.md](web/README.md) for more information.
+Check [eulerroom-live-web]([web/README.md](https://github.com/EulerRoom/eulerroom-live-web?tab=readme-ov-file#install))
+for more information.
 
 To initialize Muxy, run the following commands to set up the database and create
 a superuser:
