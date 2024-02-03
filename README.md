@@ -9,6 +9,16 @@ We use [Owncast](https://github.com/owncast/owncast),
 
 See [eulerroom-live-frontend]() for the website / frontend.
 
+## Usage
+
+This project uses Docker and Docker Compose to quick set things up.
+
+Run `docker compose up` to start all services.
+
+## Description
+
+![Services high-level block diagram](services.png)
+
 ## License
 
 The source code in this repository is licensed under the GNU Affero General
