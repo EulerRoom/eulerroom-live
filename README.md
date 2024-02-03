@@ -42,10 +42,11 @@ cp muxy/.env.sample muxy/.env
 
 Check [muxy/README.md](muxy/README.md) for more information.
 
-Do the same for the Web service at `web/`.
+Do the same for the Web service at `web/`, but this time, copy `.env` as
+`.env.local`:
 
 ```bash
-cp web/.env.sample web/.env
+cp web/.env web/.env.local
 ```
 
 Check [web/README.md](web/README.md) for more information.
@@ -70,6 +71,18 @@ Check the logs to see if everything is running:
 ```
 docker compose logs -f
 ```
+
+For the web app, you will need to create a Muxy API Key and Owncast Access
+Token.  You can do this from the admin pages of both services:
+
+* Muxy: http://localhost:8000/admin - Use the superuser credentials you created
+  earlier.
+* Owncast: http://localhost:8080/admin - Use the default credentials
+  `admin` / `abc123`
+
+Set the API key and access token in the `.env.local` file in the `web/`.
+
+*NOTE*: Remember to change the default admin password for Owncast.
 
 ## Usage
 
