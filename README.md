@@ -33,8 +33,25 @@ First, build and pull images:
 docker compose build
 ```
 
-Then, run the following commands to set up the database and create a superuser
-for Muxy:
+On `muxy/`, copy the `.env.sample` file to `.env` and fill in the necessary
+environment variables to configure Muxy:
+
+```bash
+cp muxy/.env.sample muxy/.env
+```
+
+Check [muxy/README.md](muxy/README.md) for more information.
+
+Do the same for the Web service at `web/`.
+
+```bash
+cp web/.env.sample web/.env
+```
+
+Check [web/README.md](web/README.md) for more information.
+
+To initialize Muxy, run the following commands to set up the database and create
+a superuser:
 
 ```
 docker compose run --rm muxy ./manage.py migrate
