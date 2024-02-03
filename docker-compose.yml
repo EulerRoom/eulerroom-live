@@ -1,12 +1,16 @@
 version: "3.7"
 
 services:
+  owncast:
+    image: owncast/owncast:latest
+    ports:
+      - 8080:8080
+      - 1936:1935
+
   muxy:
     build:
       context: ./muxy/
     command: gunicorn muxy.wsgi:application --workers 3 --bind 0.0.0.0:8000
-    env_file:
-      - ./muxy/.env
     volumes:
       - ./muxy/:/usr/src/app
     stdin_open: true
@@ -22,8 +26,13 @@ services:
     depends_on:
       - muxy
 
-  owncast:
-    image: owncast/owncast:latest
+  web:
+    build:
+      context: ./web/
+    volumes:
+      - ./web/:/app
     ports:
-      - 8080:8080
-      - 1936:1935
+      - 3000:3000
+    depends_on:
+      - muxy
+      - owncast
