@@ -9,7 +9,7 @@ We use [Owncast](https://github.com/owncast/owncast),
 
 See [eulerroom-live-web](https://github.com/EulerRoom/eulerroom-live-web) for the website frontend.
 
-## Usage
+## Installation
 
 We use Git submodules for some of the modules, like the frontend and muxy, so
 make sure to clone this repository like this:
@@ -24,7 +24,37 @@ Whenever you need to pull for changes, also make sure to run:
 git pull --recurse-submodules
 ```
 
-There is a Docker Compose config file to quickly set things up.
+There is a Docker Compose config file to quickly set things up. You will need to
+have Docker and Docker Compose installed.
+
+First, build and pull images:
+
+```bash
+docker compose build
+```
+
+Then, run the following commands to set up the database and create a superuser
+for Muxy:
+
+```
+docker compose run --rm muxy ./manage.py migrate
+docker compose run --rm muxy ./manage.py collectstatic
+docker compose run --rm muxy ./manage.py createsuperuser
+```
+
+Finally, start the services:
+
+```
+docker compose up -d
+```
+
+Check the logs to see if everything is running:
+
+```
+docker compose logs -f
+```
+
+## Usage
 
 Run `docker compose up` to start all services.
 
