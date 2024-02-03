@@ -7,7 +7,7 @@ We use [Owncast](https://github.com/owncast/owncast),
 [nginx-rtmp](https://github.com/arut/nginx-rtmp-module) and
 [Muxy](https://github.com/munshkr/muxy).
 
-See [eulerroom-live-frontend]() for the website / frontend.
+See [eulerroom-live-web](https://github.com/EulerRoom/eulerroom-live-web) for the website frontend.
 
 ## Usage
 
