@@ -85,7 +85,11 @@ Run `docker compose up` to start all services.
 
 ## Description
 
+### High-level services
+
 ![Services high-level block diagram](services.png)
+
+### RTMP application flow
 
 ![RTMP application flow](rtmp.png)
 
