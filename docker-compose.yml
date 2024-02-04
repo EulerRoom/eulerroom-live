@@ -20,6 +20,9 @@ services:
       context: ./nginx-rtmp/
     ports:
       - 1935:1935
+    volumes:
+      - ./nginx-rtmp/nginx.conf:/etc/nginx/nginx.conf
+      - ./data/recordings:/recordings
     depends_on:
       - muxy
 
