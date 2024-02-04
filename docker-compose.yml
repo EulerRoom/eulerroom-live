@@ -1,14 +1,6 @@
 version: "3.7"
 
 services:
-  owncast:
-    image: owncast/owncast:latest
-    ports:
-      - 8080:8080
-      - 1936:1935
-    volumes:
-      - owncast-data:/app/data
-
   muxy:
     build:
       context: ./muxy/
@@ -37,7 +29,3 @@ services:
       - 5173:5173
     depends_on:
       - muxy
-      - owncast
-
-volumes:
-  owncast-data:
