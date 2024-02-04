@@ -3,9 +3,13 @@
   "version": "0.1.0",
   "description": "Chat server for Eulerroom Live",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node index.js"
   },
   "author": "Damián Silvani <munshkr@gmail.com>",
-  "license": "AGPL-3.0-or-later"
+  "license": "AGPL-3.0-or-later",
+  "dependencies": {
+    "socket.io": "^4.7.4"
+  }
 }
