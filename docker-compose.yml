@@ -5,7 +5,10 @@ services:
     build:
       context: ./muxy/
     volumes:
-      - ./muxy/:/usr/src/app
+      - ./muxy/:/app
+      - ./data/muxy:/data
+    environment:
+      - DB_PATH=/data/muxy.db
     stdin_open: true
     tty: true
     ports:
