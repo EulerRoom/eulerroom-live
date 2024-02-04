@@ -87,6 +87,8 @@ Run `docker compose up` to start all services.
 
 ![Services high-level block diagram](services.png)
 
+![RTMP application flow](rtmp.png)
+
 ## License
 
 The source code in this repository is licensed under the GNU Affero General
