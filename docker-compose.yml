@@ -1,8 +1,42 @@
 version: "3.7"
-include:
-  - docker-compose.base.yml
 
 services:
+  muxy:
+    build:
+      context: ./muxy/
+    volumes:
+      - ./muxy/:/app
+      - ./data/muxy:/data
+    environment:
+      - DB_PATH=/data/muxy.db
+    stdin_open: true
+    tty: true
+    ports:
+      - 8000:8000
+    command: gunicorn muxy.wsgi:application --workers 3 --bind 0.0.0.0:8000
+
+  nginx-rtmp:
+    build:
+      context: ./nginx-rtmp/
+    ports:
+      - 1935:1935
+      - 8080:8080
+    volumes:
+      - ./nginx-rtmp/nginx.conf:/etc/nginx/nginx.conf
+      - ./data/recordings:/recordings
+      - ./data/hls:/mnt/hls
+      - ./data/log:/mnt/log
+    depends_on:
+      - muxy
+
+  chat:
+    build:
+      context: ./chat/
+    volumes:
+      - ./chat/:/app/
+    ports:
+      - 4000:4000
+
   web:
     build:
       context: ./web/

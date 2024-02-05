@@ -83,17 +83,6 @@ Set the API key and access token in the `.env.local` file in the `web/`.
 
 Run `docker compose up` to start all services.
 
-## Development
-
-There is a separate Docker Compose file for development. For now the only
-difference is that it runs the development server for the web service.
-
-To use it, use `-f docker-compose.dev.yaml` to your docker compose commands:
-
-```bash
-docker compose -f docker-compose.dev.yaml up
-```
-
 ## Description
 
 ### High-level services
