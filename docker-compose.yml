@@ -14,6 +14,7 @@ services:
     ports:
       - 8000:8000
     command: gunicorn muxy.wsgi:application --workers 3 --bind 0.0.0.0:8000
+    restart: always
 
   nginx-rtmp:
     build:
@@ -27,6 +28,7 @@ services:
       - ./data/recordings:/recordings
       - ./data/hls:/mnt/hls
       - ./data/log:/mnt/log
+    restart: always
     depends_on:
       - muxy
       - main-owncast
@@ -38,6 +40,7 @@ services:
       - 8081:8080
     volumes:
       - ./data/main-owncast:/app/data
+    restart: always
 
   test-owncast:
     image: owncast/owncast:latest
@@ -45,11 +48,13 @@ services:
       - 8082:8080
     volumes:
       - ./data/test-owncast:/app/data
+    restart: always
 
   web:
     build:
       context: ./web/
     ports:
       - 3000:80
+    restart: always
     depends_on:
       - muxy
