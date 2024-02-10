@@ -87,11 +87,11 @@ Run `docker compose up` to start all services.
 
 ### High-level services
 
-![Services high-level block diagram](services.png)
+![High-level services](services.png)
 
 ### nginx-rtmp application flow
 
-![nginx-rtmp application flow](rtmp.png)
+![nginx-rtmp application flow](image.png)
 
 ## License
 
