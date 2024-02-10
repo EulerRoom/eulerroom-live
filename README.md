@@ -147,7 +147,54 @@ To take effect, you will need to restart the `nginx-rtmp` service:
 docker compose restart nginx-rtmp
 ```
 
-### Main nginx configuration
+## Description
+
+### High-level services
+
+![High-level services](services.png)
+
+### nginx-rtmp application flow
+
+![nginx-rtmp application flow](rtmp.png)
+
+## Deployment
+
+This instructions are for deploying the services on a remote server. You will
+need to have a domain and a server with Docker and Docker Compose installed. You
+will also need to install and configure Nginx to serve the web app and the
+Owncast instances.
+
+It's also expected to have subdomains for each of the services already pointing
+to the IP of the remote server. For example:
+
+* `eulerroom.com` - Web app
+* `live.eulerroom.com` - Main Owncast instance
+* `test.eulerroom.com` - Test Owncast instance
+* `muxy.eulerroom.com` - Muxy
+* `nginx-rtmp.eulerroom.com` - nginx-rtmp
+
+### Docker Compose
+
+The `docker-compose.yml` file is used to start all services. You can use the
+following commands to manage the services:
+
+* `docker compose up -d` - Start all services
+* `docker compose down` - Stop all services
+* `docker compose restart` - Restart all services
+* `docker compose logs -f` - Show logs for all services
+* `docker compose ps` - Show the status of all services
+* `docker compose build` - Build all services
+
+You can specify a service to manage by adding the service name at the end of the
+command. For example:
+
+* `docker compose up -d web` - Start the web service
+
+All services have a restart policy set to `always`, so they will start on boot
+and restart if they crash.  Make sure to enable the Docker service to start on
+boot.
+
+### Nginx
 
 You will need to configure the main nginx server to serve the web app and the
 Owncast instances from a single domain. You can use the `nginx.conf` file as a
@@ -170,25 +217,17 @@ If everything is OK, reload the nginx service:
 sudo nginx -s reload
 ```
 
-## Usage
+### SSL / https
 
-Run `docker compose up -d` to start all services.
+If you want to serve the services over https, you will need to obtain a
+certificate from a certificate authority. You can use Let's Encrypt to obtain a
+free certificate.
 
-## Description
+```bash
+sudo certbot --nginx
+```
 
-### High-level services
-
-![High-level services](services.png)
-
-### nginx-rtmp application flow
-
-![nginx-rtmp application flow](rtmp.png)
-
-## Deployment
-
-**TODO**: Show how to...
-* Start all services with Docker Compose (and start them on boot)
-* Configure nginx to set up all web services
+Follow the instructions to obtain the certificate.
 
 ## License
 
