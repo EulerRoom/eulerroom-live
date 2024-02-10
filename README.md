@@ -25,6 +25,18 @@ Whenever you need to pull for changes, also make sure to run:
 git pull --recurse-submodules
 ```
 
+*Note*: You can modify and push changes from withing the cloned submodules in
+this repo.  In that case, you may want to add this settings in your
+`~/.gitconfig` to replace the `https` URLs for `ssh`, so it uses your SSH key
+(provided you have the proper access to these repos):
+
+```
+[url "ssh://git@github.com/"]
+    insteadOf = https://github.com/
+```
+
+Read more about this option [here](https://git-scm.com/docs/git-config#Documentation/git-config.txt-urlltbasegtinsteadOf).
+
 There is a Docker Compose config file to quickly set things up. You will need to
 have Docker and Docker Compose installed.
 
