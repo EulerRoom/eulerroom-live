@@ -49,29 +49,38 @@ docker compose build
 Run the following lines to create custom env files for customizing settings on each service:
 
 ```bash
+cp env.sample .env
 cp muxy/env.sample muxy/.env
 cp web/.env web/.env.local
-cp nginx-rtmp/env.sample nginx-rtmp/.env
 ```
 
-You can skip configuring these files for now (see Configuratio section below).
+Run the following command to generate two random stream keys for the Owncast instances:
+
+```bash
+openssl rand -hex 16
+```
+
+Copy these keys into the `.env` file at the root.
+
+You can skip configuring the other `.env` files for now (see Configuratio
+section below).
 
 To initialize Muxy, run the following commands to set up the database:
 
-```
+```bash
 docker compose run --rm muxy ./manage.py migrate
 docker compose run --rm muxy ./manage.py collectstatic
 ```
 
 Finally, start the services:
 
-```
+```bash
 docker compose up -d
 ```
 
 Check the logs to see if everything is running:
 
-```
+```bash
 docker compose logs -f
 ```
 
@@ -135,26 +144,10 @@ You must configure both instances of Owncast: main and test.
 
 Use `admin` / `abc123` to enter (remember to change the passwords!).
 
-You will need to create a stream key for each instance. Go to the Stream Keys
-section and create a new key. It's recommended to have two different keys
-for each instance.  Take note of the keys, as you will need to set them in the
-`nginx-rtmp` configuration (see below).
-
 **NOTE: Do not change the RTMP port and Owncast port in the Server Configuration
-section. They must be set to 1935 and 8080, respectively**.  The Docker Compose
-file maps the ports to the host machine. If you want to change the ports facing
-the host machine, you will need to change the `docker-compose.yml` file.
-
-### nginx-rtmp configuration
-
-Create a stream key in each Owncast instance and set them in the `.env` file in
-`nginx-rtmp`.  You need one for the Main instance, and one for the Test instance.
-
-To take effect, you will need to restart the `nginx-rtmp` service:
-
-```bash
-docker compose restart nginx-rtmp
-```
+section.**.  The Docker Compose file maps the ports to the host machine. If you
+want to change the ports facing the host machine, you will need to change the
+`docker-compose.yml` file.
 
 ## Description
 

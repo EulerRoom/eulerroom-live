@@ -23,7 +23,7 @@ services:
       - 1935:1935
       - 8080:8080
     env_file:
-      - ./nginx-rtmp/.env
+      - .env
     volumes:
       - ./data/recordings:/recordings
       - ./data/hls:/mnt/hls
@@ -37,17 +37,23 @@ services:
   main-owncast:
     image: owncast/owncast:latest
     ports:
-      - 8081:8080
+      - 8081:8081
+    env_file:
+      - .env
     volumes:
       - ./data/main-owncast:/app/data
+    command: -streamkey ${MAIN_STREAM_KEY} -webserverport 8081 -rtmpport 1935
     restart: always
 
   test-owncast:
     image: owncast/owncast:latest
     ports:
-      - 8082:8080
+      - 8082:8082
+    env_file:
+      - .env
     volumes:
       - ./data/test-owncast:/app/data
+    command: -streamkey ${TEST_STREAM_KEY} -webserverport 8082 -rtmpport 1935
     restart: always
 
   web:
