@@ -46,7 +46,7 @@ rtmp {
             record_path /recordings;
             record_unique on;
 
-            push rtmp://main-owncast/live/${MAIN_STREAM_KEY};
+            push rtmp://main-owncast:1935/live/${MAIN_STREAM_KEY};
         }
 
         application test {
@@ -57,7 +57,7 @@ rtmp {
 
             deny play all;
 
-            push rtmp://test-owncast/live/${TEST_STREAM_KEY};
+            push rtmp://test-owncast:1935/live/${TEST_STREAM_KEY};
         }
     }
 }
