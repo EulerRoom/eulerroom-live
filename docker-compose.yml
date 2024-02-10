@@ -29,14 +29,6 @@ services:
     depends_on:
       - muxy
 
-  chat:
-    build:
-      context: ./chat/
-    volumes:
-      - ./chat/:/app/
-    ports:
-      - 4000:4000
-
   web:
     build:
       context: ./web/
@@ -44,4 +36,3 @@ services:
       - 3000:80
     depends_on:
       - muxy
-      - chat
