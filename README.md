@@ -34,11 +34,11 @@ First, build and pull images:
 docker compose build
 ```
 
-On `muxy/`, copy the `.env.sample` file to `.env` and fill in the necessary
+On `muxy/`, copy the `env.sample` file to `.env` and fill in the necessary
 environment variables to configure Muxy:
 
 ```bash
-cp muxy/.env.sample muxy/.env
+cp muxy/env.sample muxy/.env
 ```
 
 Check [Muxy](https://github.com/munshkr/muxy?tab=readme-ov-file#initial-configuration)
@@ -51,7 +51,13 @@ Do the same for the Web service at `web/`, but this time, copy `.env` as
 cp web/.env web/.env.local
 ```
 
-You will configure it later.
+Also copy `env.sample` at `nginx-rtmp` as `.env`:
+
+```bash
+cp nginx-rtmp/env.sample nginx-rtmp/.env
+```
+
+You can skip configuring these files for now (see Configuratio section below).
 
 To initialize Muxy, run the following commands to set up the database:
 
@@ -73,15 +79,14 @@ docker compose logs -f
 ```
 
 In case you're installing this already on a remote server, you may want to
-run an SSH tunnel to access the administration panels first via your local
-machine:
+run an SSH tunnel on your local machine, to access the administration panels first:
 
 ```bash
 ssh -L 8000:localhost:8000 -L 8081:localhost:8081 -L 8082:localhost:8082 eulerroom.com
 ```
 
-Once you have configured the main nginx server on your remote host, you can
-close the tunnel.
+Once you have configured the main public nginx server on your remote host, you can
+close the tunnel and access directly through your host domain.
 
 ### Muxy configuration
 
@@ -99,18 +104,26 @@ panel. Make sure to create a "Web" API key, which has less permissions than the
 standard API key.  Take note of the key, as you will need it to configure the
 web app.
 
+In case you also modified something in your `.env` file, to take effect, restart the service:
+
+```bash
+docker compose restart muxy
+```
+
 ### Web configuration
 
 For the web app, you will need to set the Muxy API key and other variables.
 
-Inside the `web/` directory, copy the `.env` file to `.env.local`:
-
-```bash
-cp web/.env web/.env.local
-```
+Open your `.env.local` file in `web/` and adapt as needed.
 
 Check [eulerroom-live-web]([web/README.md](https://github.com/EulerRoom/eulerroom-live-web?tab=readme-ov-file#install))
 for more information.
+
+To take effect, you will need to restart the `nginx-rtmp` service:
+
+```bash
+docker compose restart web
+```
 
 ### Owncast configuration
 
@@ -134,12 +147,7 @@ the host machine, you will need to change the `docker-compose.yml` file.
 ### nginx-rtmp configuration
 
 Create a stream key in each Owncast instance and set them in the `.env` file in
-`nginx-rtmp`. You can copy the `.env.sample` file to `.env` and fill in the
-necessary environment variables:
-
-```bash
-cp nginx-rtmp/.env.sample nginx-rtmp/.env
-```
+`nginx-rtmp`.  You need one for the Main instance, and one for the Test instance.
 
 To take effect, you will need to restart the `nginx-rtmp` service:
 
