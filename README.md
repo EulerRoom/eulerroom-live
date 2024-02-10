@@ -3,10 +3,12 @@
 [Eulerroom](https://live.eulerroom.com/)'s self-hosted setup for live streaming
 events.
 
-We use [nginx-rtmp](https://github.com/arut/nginx-rtmp-module) and
+We use [Owncast](https://owncast.online/),
+[nginx-rtmp](https://github.com/arut/nginx-rtmp-module) and
 [Muxy](https://github.com/munshkr/muxy).
 
-See [eulerroom-live-web](https://github.com/EulerRoom/eulerroom-live-web) for the website frontend.
+See [eulerroom-live-web](https://github.com/EulerRoom/eulerroom-live-web) for
+the website frontend.
 
 ## Installation
 
@@ -79,6 +81,13 @@ http://localhost:8000/admin
 
 Set the API key and access token in the `.env.local` file in the `web/`.
 
+Finally, you must configure both instances of Owncast: main and test.
+
+* Main: http://localhost:8081/admin
+* Test: http://localhost:8082/admin
+
+Use `admin` / `abc123` to enter (remember to change the passwords!).
+
 ## Usage
 
 Run `docker compose up` to start all services.
@@ -92,6 +101,13 @@ Run `docker compose up` to start all services.
 ### nginx-rtmp application flow
 
 ![nginx-rtmp application flow](rtmp.png)
+
+
+## Deployment
+
+**TODO**: Show how to...
+* Start all services with Docker Compose (and start them on boot)
+* Configure nginx to set up all web services
 
 ## License
 
