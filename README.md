@@ -77,7 +77,7 @@ run an SSH tunnel to access the administration panels first via your local
 machine:
 
 ```bash
-ssh -L 8000:localhost:8000 -L 8081:localhost:8081 -L 8082:localhost:8082 myhost.com
+ssh -L 8000:localhost:8000 -L 8081:localhost:8081 -L 8082:localhost:8082 eulerroom.com
 ```
 
 Once you have configured the main nginx server on your remote host, you can
