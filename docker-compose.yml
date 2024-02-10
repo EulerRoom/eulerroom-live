@@ -29,6 +29,22 @@ services:
     depends_on:
       - muxy
 
+  main-owncast:
+    image: owncast/owncast:latest
+    ports:
+      - 8081:8080
+      - 1936:1935
+    volumes:
+      - ./data/main-owncast:/app/data
+
+  test-owncast:
+    image: owncast/owncast:latest
+    ports:
+      - 8082:8080
+      - 1937:1935
+    volumes:
+      - ./data/test-owncast:/app/data
+
   web:
     build:
       context: ./web/
