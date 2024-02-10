@@ -72,6 +72,17 @@ Check the logs to see if everything is running:
 docker compose logs -f
 ```
 
+In case you're installing this already on a remote server, you may want to
+run an SSH tunnel to access the administration panels first via your local
+machine:
+
+```bash
+ssh -L 8000:localhost:8000 -L 8081:localhost:8081 -L 8082:localhost:8082 myhost.com
+```
+
+Once you have configured the main nginx server on your remote host, you can
+close the tunnel.
+
 ### Muxy configuration
 
 You will need to create a superuser to access the admin panel. Run the following
@@ -134,6 +145,29 @@ To take effect, you will need to restart the `nginx-rtmp` service:
 
 ```bash
 docker compose restart nginx-rtmp
+```
+
+### Main nginx configuration
+
+You will need to configure the main nginx server to serve the web app and the
+Owncast instances from a single domain. You can use the `nginx.conf` file as a
+base and modify it to your needs.
+
+```bash
+sudo cp nginx.conf /etc/nginx/sites-available/eulerroom-live
+sudo ln -s /etc/nginx/sites-available/eulerroom-live /etc/nginx/sites-enabled/eulerroom-live
+```
+
+Check if the configuration is correct:
+
+```bash
+nginx -t
+```
+
+If everything is OK, reload the nginx service:
+
+```bash
+sudo nginx -s reload
 ```
 
 ## Usage
