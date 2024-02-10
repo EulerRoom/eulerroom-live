@@ -46,7 +46,8 @@ First, build and pull images:
 docker compose build
 ```
 
-Run the following lines to create custom env files for customizing settings on each service:
+Run the following lines to create custom env files for customizing settings on
+each service:
 
 ```bash
 cp env.sample .env
@@ -54,16 +55,16 @@ cp muxy/env.sample muxy/.env
 cp web/.env web/.env.local
 ```
 
-Run the following command to generate two random stream keys for the Owncast instances:
+Use this command twice, to generate 2 random stream keys for the Owncast
+instances:
 
 ```bash
 openssl rand -hex 16
 ```
 
-Copy these keys into the `.env` file at the root.
-
-You can skip configuring the other `.env` files for now (see Configuratio
-section below).
+Copy these keys into the `.env` file at the root. You need different keys for
+each Owncast instance (main and test).  You can skip configuring the other
+`.env` files for now (see Configuratio section below).
 
 To initialize Muxy, run the following commands to set up the database:
 
@@ -84,19 +85,19 @@ Check the logs to see if everything is running:
 docker compose logs -f
 ```
 
-In case you're installing this already on a remote server, you may want to
-run an SSH tunnel on your local machine, to access the administration panels first:
+In case you're installing this already on a remote server, you may want to run
+an SSH tunnel on your local machine, to access the administration panels first:
 
 ```bash
 ssh -L 8000:localhost:8000 -L 8081:localhost:8081 -L 8082:localhost:8082 eulerroom.com
 ```
 
-Once you have configured the main public nginx server on your remote host, you can
-close the tunnel and access directly through your host domain.
+Once you have configured the main public nginx server on your remote host, you
+can close the tunnel and access directly through your host domain.
 
 By default, all data will be stored in the `data/` directory on the cloned repo.
-If you want to change the location, you should modify the Docker compose file, in 
-particular the `volumes` settings on each service.
+If you want to change the location, you should modify the Docker compose file,
+in particular the `volumes` settings on each service.
 
 ### Muxy configuration
 
@@ -114,7 +115,8 @@ panel. Make sure to create a "Web" API key, which has less permissions than the
 standard API key.  Take note of the key, as you will need it to configure the
 web app.
 
-In case you also modified something in your `.env` file, to take effect, restart the service:
+In case you also modified something in your `.env` file, to take effect, restart
+the service:
 
 ```bash
 docker compose restart muxy
