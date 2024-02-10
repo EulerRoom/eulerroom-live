@@ -51,16 +51,13 @@ Do the same for the Web service at `web/`, but this time, copy `.env` as
 cp web/.env web/.env.local
 ```
 
-Check [eulerroom-live-web]([web/README.md](https://github.com/EulerRoom/eulerroom-live-web?tab=readme-ov-file#install))
-for more information.
+You will configure it later.
 
-To initialize Muxy, run the following commands to set up the database and create
-a superuser:
+To initialize Muxy, run the following commands to set up the database:
 
 ```
 docker compose run --rm muxy ./manage.py migrate
 docker compose run --rm muxy ./manage.py collectstatic
-docker compose run --rm muxy ./manage.py createsuperuser
 ```
 
 Finally, start the services:
@@ -75,22 +72,73 @@ Check the logs to see if everything is running:
 docker compose logs -f
 ```
 
-For the web app, you will need to create a Muxy API Key.  You can do this
-(using the superuser credentials you created earlier) on
-http://localhost:8000/admin
+### Muxy configuration
 
-Set the API key and access token in the `.env.local` file in the `web/`.
+You will need to create a superuser to access the admin panel. Run the following
+command and follow the instructions:
 
-Finally, you must configure both instances of Owncast: main and test.
+```bash
+docker compose run --rm muxy ./manage.py createsuperuser
+```
+
+You can access the admin panel on http://localhost:8000/admin
+
+You will also need to create a Muxy API key, which you can do on the admin
+panel. Make sure to create a "Web" API key, which has less permissions than the
+standard API key.  Take note of the key, as you will need it to configure the
+web app.
+
+### Web configuration
+
+For the web app, you will need to set the Muxy API key and other variables.
+
+Inside the `web/` directory, copy the `.env` file to `.env.local`:
+
+```bash
+cp web/.env web/.env.local
+```
+
+Check [eulerroom-live-web]([web/README.md](https://github.com/EulerRoom/eulerroom-live-web?tab=readme-ov-file#install))
+for more information.
+
+### Owncast configuration
+
+You must configure both instances of Owncast: main and test.
 
 * Main: http://localhost:8081/admin
 * Test: http://localhost:8082/admin
 
 Use `admin` / `abc123` to enter (remember to change the passwords!).
 
+You will need to create a stream key for each instance. Go to the Stream Keys
+section and create a new key. It's recommended to have two different keys
+for each instance.  Take note of the keys, as you will need to set them in the
+`nginx-rtmp` configuration (see below).
+
+**NOTE: Do not change the RTMP port and Owncast port in the Server Configuration
+section. They must be set to 1935 and 8080, respectively**.  The Docker Compose
+file maps the ports to the host machine. If you want to change the ports facing
+the host machine, you will need to change the `docker-compose.yml` file.
+
+### nginx-rtmp configuration
+
+Create a stream key in each Owncast instance and set them in the `.env` file in
+`nginx-rtmp`. You can copy the `.env.sample` file to `.env` and fill in the
+necessary environment variables:
+
+```bash
+cp nginx-rtmp/.env.sample nginx-rtmp/.env
+```
+
+To take effect, you will need to restart the `nginx-rtmp` service:
+
+```bash
+docker compose restart nginx-rtmp
+```
+
 ## Usage
 
-Run `docker compose up` to start all services.
+Run `docker compose up -d` to start all services.
 
 ## Description
 
@@ -101,7 +149,6 @@ Run `docker compose up` to start all services.
 ### nginx-rtmp application flow
 
 ![nginx-rtmp application flow](rtmp.png)
-
 
 ## Deployment
 
