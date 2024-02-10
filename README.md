@@ -16,7 +16,7 @@ We use Git submodules for some of the modules, like the frontend and muxy, so
 make sure to clone this repository like this:
 
 ```bash
-git clone --recurse-submodules
+git clone --recurse-submodules https://github.com/EulerRoom/eulerroom-live.git
 ```
 
 Whenever you need to pull for changes, also make sure to run:
@@ -34,26 +34,11 @@ First, build and pull images:
 docker compose build
 ```
 
-On `muxy/`, copy the `env.sample` file to `.env` and fill in the necessary
-environment variables to configure Muxy:
+Run the following lines to create custom env files for customizing settings on each service:
 
 ```bash
 cp muxy/env.sample muxy/.env
-```
-
-Check [Muxy](https://github.com/munshkr/muxy?tab=readme-ov-file#initial-configuration)
-for more information.
-
-Do the same for the Web service at `web/`, but this time, copy `.env` as
-`.env.local`:
-
-```bash
 cp web/.env web/.env.local
-```
-
-Also copy `env.sample` at `nginx-rtmp` as `.env`:
-
-```bash
 cp nginx-rtmp/env.sample nginx-rtmp/.env
 ```
 
@@ -87,6 +72,10 @@ ssh -L 8000:localhost:8000 -L 8081:localhost:8081 -L 8082:localhost:8082 eulerro
 
 Once you have configured the main public nginx server on your remote host, you can
 close the tunnel and access directly through your host domain.
+
+By default, all data will be stored in the `data/` directory on the cloned repo.
+If you want to change the location, you should modify the Docker compose file, in 
+particular the `volumes` settings on each service.
 
 ### Muxy configuration
 
@@ -225,7 +214,7 @@ If everything is OK, reload the nginx service:
 sudo nginx -s reload
 ```
 
-### SSL / https
+### SSL certificate / https
 
 If you want to serve the services over https, you will need to obtain a
 certificate from a certificate authority. You can use Let's Encrypt to obtain a
