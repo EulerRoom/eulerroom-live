@@ -7,8 +7,10 @@ services:
     volumes:
       - ./muxy/:/app
       - ./data/muxy:/data
+      - ./data/recordings:/data/recordings:ro
     environment:
       - DB_PATH=/data/db.sqlite3
+      - RECORDINGS_ROOT=/data/recordings
     stdin_open: true
     tty: true
     ports:
