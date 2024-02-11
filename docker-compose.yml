@@ -16,6 +16,7 @@ services:
     ports:
       - 8000:8000
     command: gunicorn muxy.wsgi:application --workers 3 --bind 0.0.0.0:8000
+    hostname: muxy.eulerroom.com
     restart: always
 
   nginx-rtmp:
