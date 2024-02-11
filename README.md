@@ -52,7 +52,6 @@ each service:
 ```bash
 cp env.sample .env
 cp muxy/env.sample muxy/.env
-cp web/.env web/.env.local
 ```
 
 Use this command twice, to generate 2 random stream keys for the Owncast
@@ -110,31 +109,16 @@ docker compose run --rm muxy ./manage.py createsuperuser
 
 You can access the admin panel on http://localhost:8000/admin
 
-You will also need to create a Muxy API key, which you can do on the admin
-panel. Make sure to create a "Web" API key, which has less permissions than the
-standard API key.  Take note of the key, as you will need it to configure the
-web app.
+You will also need to create a Muxy API key for the web frontend, which you can
+do on the admin panel. Make sure to create a "Web" API key, which has less
+permissions than the standard API key.  Take note of the key, as you will need
+it to configure the web app.
 
 In case you also modified something in your `.env` file, to take effect, restart
 the service:
 
 ```bash
 docker compose restart muxy
-```
-
-### Web configuration
-
-For the web app, you will need to set the Muxy API key and other variables.
-
-Open your `.env.local` file in `web/` and adapt as needed.
-
-Check [eulerroom-live-web]([web/README.md](https://github.com/EulerRoom/eulerroom-live-web?tab=readme-ov-file#install))
-for more information.
-
-To take effect, you will need to restart the `nginx-rtmp` service:
-
-```bash
-docker compose restart web
 ```
 
 ### Owncast configuration
@@ -165,17 +149,14 @@ want to change the ports facing the host machine, you will need to change the
 
 This instructions are for deploying the services on a remote server. You will
 need to have a domain and a server with Docker and Docker Compose installed. You
-will also need to install and configure Nginx to serve the web app and the
-Owncast instances.
+will also need to install and configure Nginx to serve the HTTP services.
 
 It's also expected to have subdomains for each of the services already pointing
 to the IP of the remote server. For example:
 
-* `eulerroom.com` - Web app
-* `live.eulerroom.com` - Main Owncast instance
+* `eulerroom.com` - Main Owncast instance
 * `test.eulerroom.com` - Test Owncast instance
 * `muxy.eulerroom.com` - Muxy
-* `nginx-rtmp.eulerroom.com` - nginx-rtmp
 
 ### Docker Compose
 
@@ -192,7 +173,7 @@ following commands to manage the services:
 You can specify a service to manage by adding the service name at the end of the
 command. For example:
 
-* `docker compose up -d web` - Start the web service
+* `docker compose restart nginx-rtmp` - Restart nginx-rtmp
 
 All services have a restart policy set to `always`, so they will start on boot
 and restart if they crash.  Make sure to enable the Docker service to start on
@@ -212,7 +193,7 @@ sudo ln -s /etc/nginx/sites-available/eulerroom-live /etc/nginx/sites-enabled/eu
 Check if the configuration is correct:
 
 ```bash
-nginx -t
+sudo nginx -t
 ```
 
 If everything is OK, reload the nginx service:
@@ -225,13 +206,17 @@ sudo nginx -s reload
 
 If you want to serve the services over https, you will need to obtain a
 certificate from a certificate authority. You can use Let's Encrypt to obtain a
-free certificate.
+free certificate.  Follow the instructions on their
+[website](https://certbot.eff.org/) to install the certbot tool.
+
+Then, run:
 
 ```bash
 sudo certbot --nginx
 ```
 
-Follow the instructions to obtain the certificate.
+Follow the instructions to obtain the certificate. Certbot will also configure
+the nginx server to use the certificate.
 
 ## License
 

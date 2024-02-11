@@ -57,12 +57,3 @@ services:
       - ./data/test-owncast:/app/data
     command: -streamkey ${TEST_STREAM_KEY} -webserverport 8082 -rtmpport 1935
     restart: always
-
-  web:
-    build:
-      context: ./web/
-    ports:
-      - 3000:80
-    restart: always
-    depends_on:
-      - muxy

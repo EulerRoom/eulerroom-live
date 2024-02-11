@@ -1,6 +1,3 @@
 [submodule "muxy"]
 	path = muxy
 	url = https://github.com/munshkr/muxy.git
-[submodule "web"]
-	path = web
-	url = https://github.com/EulerRoom/eulerroom-live-web.git
