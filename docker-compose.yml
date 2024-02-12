@@ -6,10 +6,10 @@ services:
       context: ./muxy/
     volumes:
       - ./muxy/:/app
-      - ./data/muxy:/data
+      - ./data/muxy:/data/db
       - ./data/recordings:/data/recordings:ro
     environment:
-      - DB_PATH=/data/db.sqlite3
+      - DB_PATH=/data/db/db.sqlite3
       - RECORDINGS_ROOT=/data/recordings
     stdin_open: true
     tty: true
