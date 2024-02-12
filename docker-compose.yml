@@ -31,8 +31,6 @@ services:
       - ./nginx-rtmp/nginx.conf.template:/tmp/nginx.conf.template:ro
       - ./nginx-rtmp/stat.xls:/usr/local/nginx/html/stat.xls:ro
       - ./data/recordings:/recordings
-      - ./data/hls:/mnt/hls
-      - ./data/log:/mnt/log
     restart: always
     depends_on:
       - muxy
