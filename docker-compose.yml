@@ -40,25 +40,25 @@ services:
       - test-owncast
 
   main-owncast:
-    image: owncast/owncast:0.0.13
+    build:
+      context: ./owncast/
     ports:
       - 8081:8081
     env_file:
       - .env
     volumes:
       - ./data/main-owncast:/app/data
-      - ./owncast/webroot:/app/data/webroot:ro
     command: -streamkey ${MAIN_STREAM_KEY} -webserverport 8081 -rtmpport 1935
     restart: always
 
   test-owncast:
-    image: owncast/owncast:0.0.13
+    build:
+      context: ./owncast/
     ports:
       - 8082:8082
     env_file:
       - .env
     volumes:
       - ./data/test-owncast:/app/data
-      - ./owncast/webroot:/app/data/webroot:ro
     command: -streamkey ${TEST_STREAM_KEY} -webserverport 8082 -rtmpport 1935
     restart: always
