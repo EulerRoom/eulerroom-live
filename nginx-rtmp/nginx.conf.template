@@ -13,7 +13,7 @@ rtmp {
 
         chunk_size 4000;
 
-        application stream {
+        application live {
             live on;
             notify_update_timeout 10s;
 
