@@ -128,12 +128,12 @@ You must configure both instances of Owncast: main and test.
 * Main: http://localhost:8081/admin
 * Test: http://localhost:8082/admin
 
-Use `admin` / `abc123` to enter (remember to change the passwords!).
+To login, use `admin` as username, and for the password the corresponding
+stream key you set in previous steps.
 
-**NOTE: Do not change the RTMP port and Owncast port in the Server Configuration
-section.**.  The Docker Compose file maps the ports to the host machine. If you
-want to change the ports facing the host machine, you will need to change the
-`docker-compose.yml` file.
+**NOTE: Do not change the RTMP port and Owncast port in the Server
+Configuration section.**.  The Docker Compose file maps the ports to the host
+machine.
 
 ## Description
 
