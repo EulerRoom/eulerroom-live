@@ -190,6 +190,21 @@ sudo cp nginx.conf /etc/nginx/sites-available/eulerroom-live
 sudo ln -s /etc/nginx/sites-available/eulerroom-live /etc/nginx/sites-enabled/eulerroom-live
 ```
 
+You will need to add this `map` declaration in your main `nginx.conf` file.
+Edit `/etc/nginx/nginx.conf` and add this inside your `http` rule:
+
+```bash
+http {
+    # Connection upgrade for WebSocket connections (needed by eulerroom-live)
+    map $http_upgrade $connection_upgrade {
+        default upgrade;
+        ''      close;
+    }
+
+    ...
+}
+```
+
 Check if the configuration is correct:
 
 ```bash
