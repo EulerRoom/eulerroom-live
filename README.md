@@ -10,6 +10,28 @@ We use [Owncast](https://owncast.online/),
 See [eulerroom-live-web](https://github.com/EulerRoom/eulerroom-live-web) for
 the website frontend.
 
+## Description
+
+This repository contains the configuration for the Eulerroom live streaming
+services. It uses Docker Compose to manage the services, and it's expected to
+run on a single remote server.
+
+The services are:
+
+* [nginx-rtmp](https://github.com/arut/nginx-rtmp-module): RTMP server for
+  receiving streams from the users and forwarding them to the Owncast instances.
+* [Owncast](https://owncast.online/): Main and test instances for the live
+* [Muxy](https://github.com/munshkr/muxy): RTMP-based streaming muxer for online
+  events. Provides an API for the website frontend.
+
+### High-level services
+
+![High-level services](services.png)
+
+### nginx-rtmp application flow
+
+![nginx-rtmp application flow](rtmp.png)
+
 ## Installation
 
 We use Git submodules for some of the modules, like the frontend and muxy, so
@@ -134,16 +156,6 @@ stream key you set in previous steps.
 **NOTE: Do not change the RTMP port and Owncast port in the Server
 Configuration section.**.  The Docker Compose file maps the ports to the host
 machine.
-
-## Description
-
-### High-level services
-
-![High-level services](services.png)
-
-### nginx-rtmp application flow
-
-![nginx-rtmp application flow](rtmp.png)
 
 ## Deployment
 
