@@ -233,6 +233,10 @@ sudo certbot --nginx
 Follow the instructions to obtain the certificate. Certbot will also configure
 the nginx server to use the certificate.
 
+## Ops / Maintainance
+
+Check out [OPS.md](OPS.md) for more information on how to maintain the services.
+
 ## License
 
 The source code in this repository is licensed under the GNU Affero General
