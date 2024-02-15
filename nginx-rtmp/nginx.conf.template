@@ -52,8 +52,9 @@ rtmp {
         application test {
             live on;
 
-            allow publish 127.0.0.1;
-            deny publish all;
+            # Allow pushing directly to test stream
+            #allow publish 127.0.0.1;
+            #deny publish all;
 
             deny play all;
 
