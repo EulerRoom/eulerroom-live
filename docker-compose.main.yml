@@ -1,0 +1,8 @@
+version: "3.7"
+
+services:
+  muxy:
+    extends:
+      file: docker-compose.yml
+      service: muxy
+    restart: always
