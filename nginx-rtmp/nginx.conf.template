@@ -20,13 +20,13 @@ rtmp {
             # HTTP callback when a stream starts publishing
             # Should return 2xx to allow, 3xx to redirect, anything else to deny.
             # Muxy will redirect to main or test depending if the stream is valid or not.
-            on_publish http://muxy:8000/rtmp/on-publish/;
+            on_publish http://${MUXY_HOST}/rtmp/on-publish/;
 
             # Called when a stream stops publishing.  Response is ignored.
-            on_publish_done http://muxy:8000/rtmp/on-publish-done/;
+            on_publish_done http://${MUXY_HOST}/rtmp/on-publish-done/;
 
             # Called with a period of notify_update_timeout
-            on_update http://muxy:8000/rtmp/on-update/;
+            on_update http://${MUXY_HOST}/rtmp/on-update/;
 
             #push rtmp://localhost:1935/test;
 
