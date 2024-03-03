@@ -33,7 +33,6 @@ services:
       - ./data/recordings:/recordings
     restart: always
     depends_on:
-      - muxy
       - main-owncast
       - test-owncast
 
