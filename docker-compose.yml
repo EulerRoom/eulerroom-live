@@ -17,6 +17,7 @@ services:
       - 8000:8000
     command: gunicorn muxy.wsgi:application --workers 3 --bind 0.0.0.0:8000
     hostname: muxy.eulerroom.com
+    restart: always
 
   nginx-rtmp:
     build:
@@ -30,6 +31,11 @@ services:
       - ./nginx-rtmp/nginx.conf.template:/tmp/nginx.conf.template:ro
       - ./nginx-rtmp/stat.xsl:/usr/local/nginx/html/stat.xsl:ro
       - ./data/recordings:/recordings
+    restart: always
+    depends_on:
+      - muxy
+      - main-owncast
+      - test-owncast
 
   main-owncast:
     build:
@@ -41,6 +47,7 @@ services:
     volumes:
       - ./data/main-owncast:/app/data
     command: -streamkey ${MAIN_STREAM_KEY} -webserverport 8081 -rtmpport 1935
+    restart: always
 
   test-owncast:
     build:
@@ -52,3 +59,4 @@ services:
     volumes:
       - ./data/test-owncast:/app/data
     command: -streamkey ${TEST_STREAM_KEY} -webserverport 8082 -rtmpport 1935
+    restart: always
