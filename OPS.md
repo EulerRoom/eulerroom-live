@@ -213,8 +213,11 @@ Linode supports node resizing. This is a great way to keep cost down and still b
 * Log in to the Linode Cloud Manager (UI)
 * select the linode host (toplap-hometown)
 * from the 3 dot menu, select Resize
-* **uncheck the option to Auto Resize Disk (important)**
-* when downgrading - review the storage space first to make sure the disk space used doesn't exceed the new smaller disk size. The big factor will be any recordings files from live streaming. These are in: `/opt/eulerroom/data/recordings`
+* you will probably want to check the option to Auto Resize Disk, if there is not enough room for recordings otherwise. however ...
+* when downgrading
+  * if you resized the disk when upgrading, review the storage used to make sure it doesn't exceed the new smaller disk size. The big factor will be any recordings files from live streaming. These are in: `/opt/eulerroom/data/recordings`.
+  * power the linode off, and resize the storage the target plan. For the plan with 50GB storage, that would be 50688. 50 GB = 51200 MB, and with 512 MB reserved for swap, that makes 50688.
+  * you will need to power the linode back on, before doing a 'warm' resize with minimal downtime.
 
 ### CPU utilization
 CPU is the most important compute resource for live video streaming. If there isn't enough CPU capacity, the outgoing stream can become choppy or cut out completely due to buffering constraints. The Owncast admin site monitors CPU at a high level. For a more precise view of CPU utilization, use the linux `top` command.
