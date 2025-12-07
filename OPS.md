@@ -128,7 +128,7 @@ mkdir src
 cd src
 git clone https://github.com/owncast/owncast`
 cd owncast
-git checkout v0.1.3
+git checkout v0.2.3
 ```
 
 Then edit `web/components/video/OwncastPlayer/OwncastPlayer.tsx` to edit the `autoplay` option to `true`.
